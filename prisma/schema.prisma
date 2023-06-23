@@ -10,17 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
   id        Int            @id @default(autoincrement())
-  username  String
-  password  String
+  username  String         @unique
+  passwordHash String
   cheatCodes User_CheatCode[]
 }
 
 model Console {
   id           Int            @id @default(autoincrement())
   console      String         @unique
-  cheatCodes   User_CheatCode[]
+  cheatCodes   User_CheatCode[]            
 }
 
 model User_CheatCode {
@@ -37,5 +38,27 @@ model User_CheatCode {
 
 
 
+
+// model User {
+//   id           Int                @id @default(autoincrement())
+//   username     String             @unique
+//   passwordHash String
+//   cheatCodes   Users_CheatCodes[]
+// }
+
+// model Console {
+//   id         Int                @id @default(autoincrement())
+//   console    String             @unique
+//   cheatCodes Users_CheatCodes[]
+// }
+
+// model Users_CheatCodes {
+//   id        Int       @id @default(autoincrement())
+//   gameTitle String
+//   codeTitle String
+//   code      String
+//   console   Console[]
+//   user      User[]
+// }
 
 
