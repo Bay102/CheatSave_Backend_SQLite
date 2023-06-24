@@ -10,23 +10,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id        Int            @id @default(autoincrement())
   username  String         @unique
   passwordHash String
-  cheatCodes User_CheatCode[]
+  consoles Console[]                            //!  may be unecessary to track this?   
+  cheatCodes CheatCode[]
 }
 
 model Console {
   id           Int            @id @default(autoincrement())
   console      String         @unique
-  cheatCodes   User_CheatCode[]            
+  cheatCodes   CheatCode[]  
+  user User[]             
 }
 
-model User_CheatCode {
+model CheatCode {
   id         Int      @id @default(autoincrement())
-  gameTitle  String
+  gameTitle  String 
   codeTitle  String
   code       String
   user       User     @relation(fields: [userId], references: [id])
@@ -35,30 +36,5 @@ model User_CheatCode {
   consoleId  Int
 }
 
-
-
-
-
-// model User {
-//   id           Int                @id @default(autoincrement())
-//   username     String             @unique
-//   passwordHash String
-//   cheatCodes   Users_CheatCodes[]
-// }
-
-// model Console {
-//   id         Int                @id @default(autoincrement())
-//   console    String             @unique
-//   cheatCodes Users_CheatCodes[]
-// }
-
-// model Users_CheatCodes {
-//   id        Int       @id @default(autoincrement())
-//   gameTitle String
-//   codeTitle String
-//   code      String
-//   console   Console[]
-//   user      User[]
-// }
 
 
