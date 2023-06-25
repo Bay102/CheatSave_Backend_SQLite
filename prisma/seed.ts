@@ -4,7 +4,6 @@ import { encryptPassword } from '../src/auth-utils';
 // const { prisma } = require('../src/app');
 // const { encryptPassword } = require('../src/auth-utils');
 
-
 const clearDb = async () => {
   await prisma.user.deleteMany();
   await prisma.console.deleteMany();
@@ -69,9 +68,8 @@ const seed = async () => {
       gameTitle: 'Red Dead II',
       codeTitle: 'max stamina',
       code: 'A-A-A-B-B-L1-L2-R1-RB',
-      // gameConsole: 'Xbox One',
       userId: 1,
-      consoleId: 1
+      consoleId: 1,
     },
   });
 
@@ -80,10 +78,8 @@ const seed = async () => {
       gameTitle: 'GTA5',
       codeTitle: 'max stamina',
       code: 'A-A-A-B-B-L1-L2-R1-RB',
-      // gameConsole: 'XboxOne',
       userId: 1,
-      consoleId: 1
-
+      consoleId: 1,
     },
   });
 
@@ -92,20 +88,38 @@ const seed = async () => {
       gameTitle: 'Sims4',
       codeTitle: 'more money',
       code: 'rosebud',
-      // gameConsole: 'PC',
       userId: 1,
-      consoleId: 3
+      consoleId: 3,
     },
   });
 
+  const sims4 = await prisma.cheatCode.create({
+    data: {
+      gameTitle: 'Sims4',
+      codeTitle: 'more money',
+      code: 'rosebud',
+      userId: 2,
+      consoleId: 3,
+    },
+  });
+
+  const gta5 = await prisma.cheatCode.create({
+    data: {
+      gameTitle: 'GTA5',
+      codeTitle: 'max stamina',
+      code: 'A-A-A-B-B-L1-L2-R1-RB',
+      userId: 3,
+      consoleId: 1,
+    },
+  });
 };
 
 seed()
-.then(async () => {
-  await prisma.$disconnect()
-})
-.catch(async (e) => {
-  console.error(e)
-  await prisma.$disconnect()
-  process.exit(1)
-})
+  .then(async () => {
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });
