@@ -44,7 +44,7 @@ export const encryptPassword = (password: string) => {
    res: Response,
    next: NextFunction
  ) => {
-   console.log(req.headers.authorization);
+  //  console.log(req.headers.authorization);
    const [, token] = req.headers.authorization?.split?.(" ") || []; //! Have Jon Explain
  
    const userJwtData = getDataFromAuthToken(token);

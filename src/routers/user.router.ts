@@ -12,6 +12,13 @@ import bcrypt from 'bcrypt';
 
 const userController = Router();
 
+//| Get Users
+userController.get('/users', async (_req, res) => {
+  const users = await prisma.user.findMany()
+  res.send(users)
+})
+
+
 //|   Create New User
 userController.post(
   '/user/create',
@@ -99,6 +106,7 @@ userController.patch(
     }),
   }),
   async (req: Request, res: Response, next: NextFunction) => {
+    
     console.log(req.user!.username);
 
     if (req.user!.username === req.body.username) {

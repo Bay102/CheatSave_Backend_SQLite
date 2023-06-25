@@ -18,6 +18,9 @@
   "bugs": {
     "url": "https://github.com/Bay102/CheatSave_SQL/issues"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "homepage": "https://github.com/Bay102/CheatSave_SQL#readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
