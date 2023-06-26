@@ -48,7 +48,7 @@ codeController.post(
       const newCode = await prisma.cheatCode.create({
         data: {
           userId,
-          consoleName: 'PC', //! FIX THIS SO NOT HARD CODED , THEN WORKS
+          consoleName, 
           gameTitle,
           codeTitle,
           code,
