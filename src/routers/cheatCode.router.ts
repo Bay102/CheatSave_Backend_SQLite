@@ -7,34 +7,56 @@ import { intParseableString as intParsableString } from '../../zod/intParseStrin
 
 const codeController = Router();
 
+//| Get Users Cheat Codes
+codeController.get('/codes/:id', async (req, res) => {
+  const usersCodes = await prisma.cheatCode.findMany({
+    where: {
+      userId: +req.params.id,
+    },
+    include: {
+      user: true,
+      console: true,
+    },
+  });
+  console.log(usersCodes);
+
+  if (!usersCodes) {
+    return res.status(500).json({ message: 'No Codes' });
+  }
+
+  res.status(200).send(usersCodes);
+});
+
 //| User Create New CheatCode
 codeController.post(
   '/user/newcode',
   authenticationMiddleware,
   validateRequest({
     body: z.object({
+      userId: z.number(),
+      consoleName: z.string(),
       gameTitle: z.string(),
       codeTitle: z.string(),
       code: z.string(),
-      userId: z.number(),
-      consoleId: z.number(),
     }),
   }),
   async (req, res) => {
-    const { gameTitle, codeTitle, code, consoleId } = req.body;
+    const { userId, gameTitle, codeTitle, code, consoleName } = req.body;
+    console.log(userId);
+
     try {
       const newCode = await prisma.cheatCode.create({
         data: {
+          userId,
+          consoleName: 'PC', //! FIX THIS SO NOT HARD CODED , THEN WORKS
           gameTitle,
           codeTitle,
           code,
-          userId: +req.user!.id,
-          consoleId,
         },
       });
       res.status(200).json(newCode);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       res.send(error);
     }
   }
@@ -50,7 +72,7 @@ codeController.delete(
   }),
   async (req, res) => {
     if (!req.params.codeId) {
-      return res.status(500).json({message: 'missing code-id'})  //! ask Jon how to get this error to show
+      return res.status(500).json({ message: 'missing code-id' }); //! ask Jon how to get this error to show
     }
     await prisma.cheatCode
       .delete({

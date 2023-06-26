@@ -8,7 +8,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "Console" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "console" TEXT NOT NULL
+    "consoleName" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -18,13 +18,13 @@ CREATE TABLE "CheatCode" (
     "codeTitle" TEXT NOT NULL,
     "code" TEXT NOT NULL,
     "userId" INTEGER NOT NULL,
-    "consoleId" INTEGER NOT NULL,
+    "consoleName" TEXT NOT NULL,
     CONSTRAINT "CheatCode_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "CheatCode_consoleId_fkey" FOREIGN KEY ("consoleId") REFERENCES "Console" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "CheatCode_consoleName_fkey" FOREIGN KEY ("consoleName") REFERENCES "Console" ("consoleName") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Console_console_key" ON "Console"("console");
+CREATE UNIQUE INDEX "Console_consoleName_key" ON "Console"("consoleName");

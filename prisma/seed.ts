@@ -5,9 +5,9 @@ import { encryptPassword } from '../src/auth-utils';
 // const { encryptPassword } = require('../src/auth-utils');
 
 const clearDb = async () => {
+  await prisma.cheatCode.deleteMany();
   await prisma.user.deleteMany();
   await prisma.console.deleteMany();
-  await prisma.cheatCode.deleteMany();
 };
 
 const seed = async () => {
@@ -17,6 +17,7 @@ const seed = async () => {
   //| Seed Users
   const zak = await prisma.user.create({
     data: {
+      id: 1,
       username: 'Zak',
       passwordHash: await encryptPassword('password'),
     },
@@ -24,6 +25,7 @@ const seed = async () => {
 
   const jon = await prisma.user.create({
     data: {
+      id: 2,
       username: 'coder',
       passwordHash: await encryptPassword('password'),
     },
@@ -31,6 +33,7 @@ const seed = async () => {
 
   const marty = await prisma.user.create({
     data: {
+      id: 3,
       username: 'Jon',
       passwordHash: await encryptPassword('password'),
     },
@@ -39,25 +42,29 @@ const seed = async () => {
   //| Seed Consoles
   const XboxOne = await prisma.console.create({
     data: {
-      console: 'XboxOne',
+      id: 1,
+      consoleName: 'XboxOne',
     },
   });
 
   const PS5 = await prisma.console.create({
     data: {
-      console: 'PS5',
+      id: 2,
+      consoleName: 'PS5',
     },
   });
 
   const PC = await prisma.console.create({
     data: {
-      console: 'PC',
+      id: 3,
+      consoleName: 'PC',
     },
   });
 
   const Switch = await prisma.console.create({
     data: {
-      console: 'Switch',
+      id: 4,
+      consoleName: 'Switch',
     },
   });
 
@@ -65,51 +72,56 @@ const seed = async () => {
 
   const RDR2 = await prisma.cheatCode.create({
     data: {
+      id: 1,
       gameTitle: 'Red Dead II',
       codeTitle: 'max stamina',
       code: 'A-A-A-B-B-L1-L2-R1-RB',
       userId: 1,
-      consoleId: 1,
+      consoleName: 'XboxOne',
     },
   });
 
   const GTA5 = await prisma.cheatCode.create({
     data: {
+      id: 2,
       gameTitle: 'GTA5',
       codeTitle: 'max stamina',
       code: 'A-A-A-B-B-L1-L2-R1-RB',
       userId: 1,
-      consoleId: 1,
+      consoleName: 'PC',
     },
   });
 
   const Sims4 = await prisma.cheatCode.create({
     data: {
+      id: 3,
       gameTitle: 'Sims4',
       codeTitle: 'more money',
       code: 'rosebud',
       userId: 1,
-      consoleId: 3,
+      consoleName: 'PS5',
     },
   });
 
   const sims4 = await prisma.cheatCode.create({
     data: {
+      id: 4,
       gameTitle: 'Sims4',
       codeTitle: 'more money',
       code: 'rosebud',
       userId: 2,
-      consoleId: 3,
+      consoleName: 'XboxOne',
     },
   });
 
   const gta5 = await prisma.cheatCode.create({
     data: {
+      id: 5,
       gameTitle: 'GTA5',
       codeTitle: 'max stamina',
       code: 'A-A-A-B-B-L1-L2-R1-RB',
       userId: 3,
-      consoleId: 1,
+      consoleName: 'Switch',
     },
   });
 };

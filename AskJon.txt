@@ -1,7 +1,12 @@
-do ids fix themselves ever ? like when something is deleted are the ids re-ceralized  ?
 
-help with seed script, 
-   - it kinda works, 
-   - when i run a migrate dev, should the seed be firing off
-   -  cannot execute ts-node commands 
-   -  when i run 'npx prisma seed db' i get foreign key restrictions and cannot delete 
+
+- how to get zod errors to display in console 
+
+-do ids fix themselves ever ? like when something is deleted are the ids re-ceralized  ?
+
+- when i run a migrate dev, should the seed be firing off
+   
+
+
+
+  

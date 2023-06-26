@@ -12,10 +12,10 @@ import bcrypt from 'bcrypt';
 
 const userController = Router();
 
-//| Get Users
+//|    Get Users
 userController.get('/users', async (_req, res) => {
   const users = await prisma.user.findMany()
-  res.send(users)
+  res.send(users);
 })
 
 
@@ -60,6 +60,7 @@ userController.post(
   '/user/login',
   validateRequest({
     body: z.object({
+      // id: z.number(),
       username: z.string(),
       password: z.string(),
     }),
@@ -71,6 +72,10 @@ userController.post(
           username: req.body.username,
         },
       });
+      console.log(user?.id);
+      const userId = user?.id
+      
+     console.log("logging.....");
 
       if (!user) {
         return res.status(404).json({ message: 'username does not exist' });
@@ -88,7 +93,7 @@ userController.post(
       const userInformation = createUnsecuredUserData(user);
       const token = createTokenForUser(user);
 
-      res.status(200).json({ token, userInformation });
+      res.status(200).json({ token, userInformation, userId });
     } catch (error) {
       console.error(error);
       res.status(404).json({ error });
