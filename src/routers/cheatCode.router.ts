@@ -18,7 +18,6 @@ codeController.get('/codes/:id', async (req, res) => {
       console: true,
     },
   });
-  console.log(usersCodes);
 
   if (!usersCodes) {
     return res.status(500).json({ message: 'No Codes' });

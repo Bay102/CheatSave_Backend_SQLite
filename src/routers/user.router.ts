@@ -25,7 +25,7 @@ userController.post(
   validateRequest({
     body: z.object({
       username: z.string(),
-      passwordHash: z.string(),
+      password: z.string(),
     }),
   }),
   async (req, res) => {
@@ -43,11 +43,11 @@ userController.post(
       const user = await prisma.user.create({
         data: {
           username: req.body.username,
-          passwordHash: await encryptPassword(req.body.passwordHash),
+          passwordHash: await encryptPassword(req.body.password),
         },
       });
 
-      res.status(201).send(user);
+      res.status(201).json({user});
     } catch (error) {
       console.error(error);
       res.status(404).json({ message: error });
@@ -96,7 +96,7 @@ userController.post(
       res.status(200).json({ token, userInformation, userId });
     } catch (error) {
       console.error(error);
-      res.status(404).json({ error });
+      res.status(404).json({ message: 'username does not exist'});
     }
   }
 );
