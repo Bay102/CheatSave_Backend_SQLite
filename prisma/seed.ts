@@ -1,9 +1,6 @@
 import { prisma } from '../src/app';
 import { encryptPassword } from '../src/auth-utils';
 
-// const { prisma } = require('../src/app');
-// const { encryptPassword } = require('../src/auth-utils');
-
 const clearDb = async () => {
   await prisma.cheatCode.deleteMany();
   await prisma.user.deleteMany();
@@ -18,7 +15,7 @@ const seed = async () => {
   const zak = await prisma.user.create({
     data: {
       id: 1,
-      username: 'Zak',
+      username: 'doomslayer',
       passwordHash: await encryptPassword('password'),
     },
   });
@@ -69,8 +66,7 @@ const seed = async () => {
   });
 
   //| Seed Cheat Codes
-
-  const RDR2 = await prisma.cheatCode.create({
+  const seedGame = await prisma.cheatCode.create({
     data: {
       id: 1,
       gameTitle: 'Red Dead II',
@@ -81,9 +77,20 @@ const seed = async () => {
     },
   });
 
-  const GTA5 = await prisma.cheatCode.create({
+  const RDR2 = await prisma.cheatCode.create({
     data: {
       id: 2,
+      gameTitle: 'Red Dead II',
+      codeTitle: 'max stamina',
+      code: 'A-A-A-B-B-L1-L2-R1-RB',
+      userId: 1,
+      consoleName: 'XboxOne',
+    },
+  });
+
+  const GTA5 = await prisma.cheatCode.create({
+    data: {
+      id: 3,
       gameTitle: 'GTA5',
       codeTitle: 'max stamina',
       code: 'A-A-A-B-B-L1-L2-R1-RB',
@@ -94,7 +101,7 @@ const seed = async () => {
 
   const Sims4 = await prisma.cheatCode.create({
     data: {
-      id: 3,
+      id: 4,
       gameTitle: 'Sims4',
       codeTitle: 'more money',
       code: 'rosebud',
@@ -105,7 +112,7 @@ const seed = async () => {
 
   const sims4 = await prisma.cheatCode.create({
     data: {
-      id: 4,
+      id: 5,
       gameTitle: 'Sims4',
       codeTitle: 'more money',
       code: 'rosebud',
@@ -116,12 +123,45 @@ const seed = async () => {
 
   const gta5 = await prisma.cheatCode.create({
     data: {
-      id: 5,
+      id: 6,
       gameTitle: 'GTA5',
       codeTitle: 'max stamina',
       code: 'A-A-A-B-B-L1-L2-R1-RB',
       userId: 3,
       consoleName: 'Switch',
+    },
+  });
+
+  const seeedGame1 = await prisma.cheatCode.create({
+    data: {
+      id: 7,
+      gameTitle: 'GTA 4',
+      codeTitle: 'Weapons',
+      code: 'R1-B-B-Y-A-L1-L2-R1-X',
+      userId: 1,
+      consoleName: 'PS5',
+    },
+  });
+
+  const seeedGame2 = await prisma.cheatCode.create({
+    data: {
+      id: 8,
+      gameTitle: 'GTA 4',
+      codeTitle: 'Spawn Sanchez',
+      code: 'R1-B-B-X-A-Y-Y-R1-X',
+      userId: 1,
+      consoleName: 'PS5',
+    },
+  });
+
+  const seeedGame3 = await prisma.cheatCode.create({
+    data: {
+      id: 9,
+      gameTitle: 'SpiderMan',
+      codeTitle: 'Infinite Stamina',
+      code: 'R1-B-B-Y-A-L1-L2-R1-X',
+      userId: 1,
+      consoleName: 'XboxOne',
     },
   });
 };

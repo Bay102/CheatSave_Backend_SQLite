@@ -14,10 +14,9 @@ const userController = Router();
 
 //|    Get Users
 userController.get('/users', async (_req, res) => {
-  const users = await prisma.user.findMany()
+  const users = await prisma.user.findMany();
   res.send(users);
-})
-
+});
 
 //|   Create New User
 userController.post(
@@ -47,7 +46,7 @@ userController.post(
         },
       });
 
-      res.status(201).json({user});
+      res.status(201).json({ user });
     } catch (error) {
       console.error(error);
       res.status(404).json({ message: error });
@@ -60,7 +59,6 @@ userController.post(
   '/user/login',
   validateRequest({
     body: z.object({
-      // id: z.number(),
       username: z.string(),
       password: z.string(),
     }),
@@ -72,10 +70,6 @@ userController.post(
           username: req.body.username,
         },
       });
-      console.log(user?.id);
-      const userId = user?.id
-      
-     console.log("logging.....");
 
       if (!user) {
         return res.status(404).json({ message: 'username does not exist' });
@@ -87,16 +81,17 @@ userController.post(
       );
 
       if (!isPasswordCorrect) {
-        return res.status(401).json({ message: 'Incorrect Password' });
+        return res.status(401).send({ message: 'Incorrect Password' });
       }
 
+      const userId = user?.id;
       const userInformation = createUnsecuredUserData(user);
       const token = createTokenForUser(user);
 
       res.status(200).json({ token, userInformation, userId });
     } catch (error) {
       console.error(error);
-      res.status(404).json({ message: 'username does not exist'});
+      res.status(404).json({ message: 'username does not exist' });
     }
   }
 );
@@ -111,7 +106,6 @@ userController.patch(
     }),
   }),
   async (req: Request, res: Response, next: NextFunction) => {
-    
     console.log(req.user!.username);
 
     if (req.user!.username === req.body.username) {

@@ -33,4 +33,3 @@ model CheatCode {
   console     Console @relation(fields: [consoleName], references: [consoleName])
   consoleName String
 }
-

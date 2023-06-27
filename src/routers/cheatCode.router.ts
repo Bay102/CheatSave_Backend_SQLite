@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response, Router } from 'express';
+import { Router } from 'express';
 import { prisma } from '../app';
 import { z } from 'zod';
 import { validateRequest } from 'zod-express-middleware';
 import { authenticationMiddleware } from '../auth-utils';
-import { intParseableString as intParsableString } from '../../zod/intParseString.schema';
+import { intParsableString as intParsableString } from '../../zod/intParseString.schema';
 
 const codeController = Router();
 
@@ -41,13 +41,11 @@ codeController.post(
   }),
   async (req, res) => {
     const { userId, gameTitle, codeTitle, code, consoleName } = req.body;
-    console.log(userId);
-
     try {
       const newCode = await prisma.cheatCode.create({
         data: {
           userId,
-          consoleName, 
+          consoleName,
           gameTitle,
           codeTitle,
           code,
@@ -71,7 +69,7 @@ codeController.delete(
   }),
   async (req, res) => {
     if (!req.params.codeId) {
-      return res.status(500).json({ message: 'missing code-id' }); //! ask Jon how to get this error to show
+      return res.status(500).json({ message: 'missing code-id' });
     }
     await prisma.cheatCode
       .delete({
