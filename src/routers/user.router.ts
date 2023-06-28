@@ -29,13 +29,13 @@ userController.post(
   }),
   async (req, res) => {
     try {
-      const usernameTaken = await prisma.user.findUnique({
+      const foundUser = await prisma.user.findUnique({
         where: {
           username: req.body.username,
         },
       });
 
-      if (usernameTaken) {
+      if (foundUser) {
         return res.status(404).json({ message: 'Username Taken' });
       }
 
